@@ -512,13 +512,13 @@ var _fetchLord = require("./js/fetchLord");
 var _fetchLordDefault = parcelHelpers.interopDefault(_fetchLord);
 const list = document.querySelector(".cards");
 function createMarkup(arr) {
-    const markup = arr.reduce((acc, { name , race  })=>acc + `<li><h2>${name}</h2><h3>${race}</h3></li>`, "");
+    const markup = arr.reduce((acc, { title , vote_average , poster_path  })=>acc + `<li class="cards-item"><h2>${title}</h2><img src="https://image.tmdb.org/t/p/w500${poster_path}" alt=""><h3>${vote_average}</h3></li>`, "");
     list.innerHTML = markup;
 }
 (0, _fetchLordDefault.default)().then((data)=>{
     console.log(data);
-    createMarkup(data.docs);
-    (0, _paginationDefault.default)(data.page, data.pages);
+    createMarkup(data.results);
+    (0, _paginationDefault.default)(data.page, data.total_pages);
 });
 
 },{"./js/pagination":"9j1Dd","./js/fetchLord":"5h9r2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9j1Dd":[function(require,module,exports) {
@@ -537,7 +537,7 @@ function pagination(currentPage, allPages) {
     let afterTwoPage = currentPage + 2;
     globalCurrentPage = currentPage;
     if (currentPage > 1) {
-        markup += `<li>&#129144;</li>`;
+        markup += `<li>&#8592;</li>`;
         markup += `<li>1</li>`;
     }
     if (currentPage > 4) markup += `<li>...</li>`;
@@ -549,7 +549,7 @@ function pagination(currentPage, allPages) {
     if (allPages - 3 > currentPage) markup += `<li>...</li>`;
     if (allPages > currentPage) {
         markup += `<li>${allPages}</li>`;
-        markup += `<li>&#129146;</li>`;
+        markup += `<li>&#8594;</li>`;
     }
     paginationBox.innerHTML = markup;
 }
@@ -558,38 +558,35 @@ paginationBox.addEventListener("click", handlrePagination);
 function handlrePagination(evt) {
     if (evt.target.nodeName !== "LI") return;
     if (evt.target.textContent === "...") return;
-    if (evt.target.textContent === "\uD83E\uDC78") {
+    if (evt.target.textContent === "\u2190") {
         (0, _fetchLordDefault.default)(globalCurrentPage -= 1).then((data)=>{
-            (0, _index.createMarkup)(data.docs);
-            pagination(data.page, data.pages);
+            (0, _index.createMarkup)(data.results);
+            pagination(data.page, data.total_pages);
         });
         return;
     }
-    if (evt.target.textContent === "\uD83E\uDC7A") {
+    if (evt.target.textContent === "\u2192") {
         (0, _fetchLordDefault.default)(globalCurrentPage += 1).then((data)=>{
-            (0, _index.createMarkup)(data.docs);
-            pagination(data.page, data.pages);
+            (0, _index.createMarkup)(data.results);
+            pagination(data.page, data.total_pages);
         });
         return;
     }
     const page = evt.target.textContent;
     (0, _fetchLordDefault.default)(page).then((data)=>{
-        (0, _index.createMarkup)(data.docsz);
-        pagination(data.page, data.pages);
+        (0, _index.createMarkup)(data.results);
+        pagination(data.page, data.total_pages);
     });
 }
 
 },{"./fetchLord":"5h9r2","../index":"8lqZg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5h9r2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+const BASE_URL = `https://api.themoviedb.org/3/movie/popular`;
+const KEY = `002008aca7b79d6606168d582d26d735`;
 function searchVCharacters(pageNumber = 1) {
-    const URL = `https://the-one-api.dev/v2/character?limit=20&page=${pageNumber}`;
-    const options = {
-        headers: {
-            Authorization: "Bearer GAepmfdXiazfYX4VUu4M"
-        }
-    };
-    return fetch(URL, options).then((r)=>r.json());
+    const URL = `${BASE_URL}?api_key=${KEY}&page=${pageNumber}`;
+    return fetch(URL).then((response)=>response.json());
 }
 exports.default = searchVCharacters;
 

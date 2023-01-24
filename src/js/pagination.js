@@ -3,12 +3,7 @@ import { createMarkup } from '../index';
 
 const paginationBox = document.querySelector('.pagination');
 let globalCurrentPage = 0;
-/**
- *Create pagination
- * @param {Number} currentPage - current page for search
- * @param {Number} allPage - all pages for search
- * @return {String} markup - for pagination
- */
+
 export default function pagination(currentPage, allPages) {
   let markup = '';
   let beforeTwoPage = currentPage - 2;
@@ -18,7 +13,7 @@ export default function pagination(currentPage, allPages) {
   globalCurrentPage = currentPage;
 
   if (currentPage > 1) {
-    markup += `<li>&#129144;</li>`;
+    markup += `<li>&#8592;</li>`;
     markup += `<li>1</li>`;
   }
   if (currentPage > 4) {
@@ -44,7 +39,7 @@ export default function pagination(currentPage, allPages) {
 
   if (allPages > currentPage) {
     markup += `<li>${allPages}</li>`;
-    markup += `<li>&#129146;</li>`;
+    markup += `<li>&#8594;</li>`;
   }
   paginationBox.innerHTML = markup;
 }
@@ -58,23 +53,23 @@ function handlrePagination(evt) {
   if (evt.target.textContent === '...') {
     return;
   }
-  if (evt.target.textContent === '🡸') {
+  if (evt.target.textContent === '←') {
     fetchLord((globalCurrentPage -= 1)).then(data => {
-      createMarkup(data.docs);
-      pagination(data.page, data.pages);
+      createMarkup(data.results);
+      pagination(data.page, data.total_pages);
     });
     return;
   }
-  if (evt.target.textContent === '🡺') {
+  if (evt.target.textContent === '→') {
     fetchLord((globalCurrentPage += 1)).then(data => {
-      createMarkup(data.docs);
-      pagination(data.page, data.pages);
+      createMarkup(data.results);
+      pagination(data.page, data.total_pages);
     });
     return;
   }
   const page = evt.target.textContent;
   fetchLord(page).then(data => {
-    createMarkup(data.docsz);
-    pagination(data.page, data.pages);
+    createMarkup(data.results);
+    pagination(data.page, data.total_pages);
   });
 }

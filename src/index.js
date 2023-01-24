@@ -5,7 +5,9 @@ const list = document.querySelector('.cards');
 
 export function createMarkup(arr) {
   const markup = arr.reduce(
-    (acc, { name, race }) => acc + `<li><h2>${name}</h2><h3>${race}</h3></li>`,
+    (acc, { title, vote_average, poster_path
+    }) => acc + `<li class="cards-item"><h2>${title}</h2><img src="https://image.tmdb.org/t/p/w500${poster_path
+    }" alt=""><h3>${vote_average}</h3></li>`,
     ''
   );
   list.innerHTML = markup;
@@ -13,6 +15,6 @@ export function createMarkup(arr) {
 
 searchVCharacters().then(data => {
   console.log(data);
-  createMarkup(data.docs);
-  pagination(data.page, data.pages);
+  createMarkup(data.results);
+  pagination(data.page, data.total_pages);
 });
