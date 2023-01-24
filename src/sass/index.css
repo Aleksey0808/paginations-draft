@@ -1,0 +1,8 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+.pagination {
+  display: flex;
+}
+
+.pagination li {
+  display: flex;
+}/*# sourceMappingURL=index.css.map */
