@@ -512,7 +512,7 @@ var _fetchLord = require("./js/fetchLord");
 var _fetchLordDefault = parcelHelpers.interopDefault(_fetchLord);
 const list = document.querySelector(".cards");
 function createMarkup(arr) {
-    const markup = arr.reduce((acc, { title , vote_average , poster_path  })=>acc + `<li class="cards-item"><h2>${title}</h2><img src="https://image.tmdb.org/t/p/w500${poster_path}" alt=""><h3>${vote_average}</h3></li>`, "");
+    const markup = arr.reduce((acc, { title , vote_average , poster_path  })=>acc + `<li class="cards-item"><h2>${title}</h2><img class='movieImag' src="https://image.tmdb.org/t/p/w500${poster_path}" alt=""><h3>${vote_average}</h3></li>`, "");
     list.innerHTML = markup;
 }
 (0, _fetchLordDefault.default)().then((data)=>{
@@ -543,12 +543,12 @@ function pagination(currentPage, allPages) {
     if (currentPage > 4) markup += `<li>...</li>`;
     if (currentPage > 3) markup += `<li>${beforeTwoPage}</li>`;
     if (currentPage > 2) markup += `<li>${beforePage}</li>`;
-    markup += `<li><b>${currentPage}</b></li>`;
+    markup += `<li><span>${currentPage}</span></li>`;
     if (allPages - 1 > currentPage) markup += `<li>${afterPage}</li>`;
     if (allPages - 2 > currentPage) markup += `<li>${afterTwoPage}</li>`;
     if (allPages - 3 > currentPage) markup += `<li>...</li>`;
-    if (allPages > currentPage) {
-        markup += `<li>${allPages}</li>`;
+    if (allPages > currentPage || allPages < currentPage) {
+        markup += `<li>${allPages = 500}</li>`;
         markup += `<li>&#8594;</li>`;
     }
     paginationBox.innerHTML = markup;

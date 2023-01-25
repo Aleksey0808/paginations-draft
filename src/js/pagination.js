@@ -25,7 +25,7 @@ export default function pagination(currentPage, allPages) {
   if (currentPage > 2) {
     markup += `<li>${beforePage}</li>`;
   }
-  markup += `<li><b>${currentPage}</b></li>`;
+  markup += `<li><span>${currentPage}</span></li>`;
 
   if (allPages - 1 > currentPage) {
     markup += `<li>${afterPage}</li>`;
@@ -36,9 +36,9 @@ export default function pagination(currentPage, allPages) {
   if (allPages - 3 > currentPage) {
     markup += `<li>...</li>`;
   }
-
-  if (allPages > currentPage) {
-    markup += `<li>${allPages}</li>`;
+  
+  if (allPages > currentPage || allPages < currentPage) {
+    markup += `<li>${allPages = 500}</li>`;
     markup += `<li>&#8594;</li>`;
   }
   paginationBox.innerHTML = markup;
