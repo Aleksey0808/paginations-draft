@@ -14,7 +14,7 @@ export default function pagination(currentPage, allPages = totalPage) {
   globalCurrentPage = currentPage
 
   if (currentPage > 1) {
-    markup += `<li>&#8592;</li>`
+    markup += `<li class='arrow'>&#8592;</li>`
     markup += `<li>1</li>`
   }
   if (currentPage > 4) {
@@ -49,7 +49,7 @@ export default function pagination(currentPage, allPages = totalPage) {
   }
   if (allPages > currentPage || allPages < currentPage) {
     markup += `<li>${allPages}</li>`
-    markup += `<li>&#8594;</li>`
+    markup += `<li class='arrow'>&#8594;</li>`
   }
   paginationBox.innerHTML = markup
 }
@@ -64,22 +64,34 @@ function handlrePagination(evt) {
     return
   }
   if (evt.target.textContent === '←') {
-    fetchLord((globalCurrentPage -= 1)).then((data) => {
-      createMarkup(data.results)
-      pagination(data.page, totalPage)
-    })
+    fetchLord((globalCurrentPage -= 1))
+      .then((data) => {
+        createMarkup(data.results)
+        pagination(data.page, totalPage)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     return
   }
   if (evt.target.textContent === '→') {
-    fetchLord((globalCurrentPage += 1)).then((data) => {
-      createMarkup(data.results)
-      pagination(data.page, totalPage)
-    })
+    fetchLord((globalCurrentPage += 1))
+      .then((data) => {
+        createMarkup(data.results)
+        pagination(data.page, totalPage)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     return
   }
   const page = evt.target.textContent
-  fetchLord(page).then((data) => {
-    createMarkup(data.results)
-    pagination(data.page, totalPage)
-  })
+  fetchLord(page)
+    .then((data) => {
+      createMarkup(data.results)
+      pagination(data.page, totalPage)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
 }
