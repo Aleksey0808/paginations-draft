@@ -6,8 +6,8 @@ const list = document.querySelector('.cards');
 export function createMarkup(arr) {
   const markup = arr.reduce(
     (acc, { title, vote_average, poster_path
-    }) => acc + `<li class="cards-item"><h2>${title}</h2><img class='movieImag' src="https://image.tmdb.org/t/p/w500${poster_path
-    }" alt=""><h3>${vote_average}</h3></li>`,
+    }) => acc + `<li class="cards-item"><img class='movieImag' src="https://image.tmdb.org/t/p/w500${poster_path
+  }" alt=""> <div class='description_box'><p class='title'>${title}</p><p class='grade'>${vote_average}</p></div></li>`,
     ''
   );
   list.innerHTML = markup;

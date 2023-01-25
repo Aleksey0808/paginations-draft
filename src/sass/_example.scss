@@ -25,10 +25,41 @@
 }
 
 .cards-item {
-  width: 300px;
+  width: 400;
   padding: 20px;
 }
 
 .movieImag {
-  width: 200px;
+  width: 100%;
+  
+}
+
+
+.description_box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  margin-right: 10px;
+}
+
+.grade {
+  width: 40px;
+  height: 20px;
+  left: 229px;
+  top: 890px;
+  text-align: center;
+
+  background: #FF6B01;
+  border-radius: 5px;
+}
+
+.currentPage {
+  font-weight: 900;
 }

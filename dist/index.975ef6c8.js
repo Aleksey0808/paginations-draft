@@ -512,7 +512,7 @@ var _fetchLord = require("./js/fetchLord");
 var _fetchLordDefault = parcelHelpers.interopDefault(_fetchLord);
 const list = document.querySelector(".cards");
 function createMarkup(arr) {
-    const markup = arr.reduce((acc, { title , vote_average , poster_path  })=>acc + `<li class="cards-item"><h2>${title}</h2><img class='movieImag' src="https://image.tmdb.org/t/p/w500${poster_path}" alt=""><h3>${vote_average}</h3></li>`, "");
+    const markup = arr.reduce((acc, { title , vote_average , poster_path  })=>acc + `<li class="cards-item"><img class='movieImag' src="https://image.tmdb.org/t/p/w500${poster_path}" alt=""> <div class='description_box'><p class='title'>${title}</p><p class='grade'>${vote_average}</p></div></li>`, "");
     list.innerHTML = markup;
 }
 (0, _fetchLordDefault.default)().then((data)=>{
@@ -529,7 +529,7 @@ var _fetchLordDefault = parcelHelpers.interopDefault(_fetchLord);
 var _index = require("../index");
 const paginationBox = document.querySelector(".pagination");
 let globalCurrentPage = 0;
-function pagination(currentPage, allPages) {
+function pagination(currentPage, allPages = 500) {
     let markup = "";
     let beforeTwoPage = currentPage - 2;
     let beforePage = currentPage - 1;
@@ -543,9 +543,16 @@ function pagination(currentPage, allPages) {
     if (currentPage > 4) markup += `<li>...</li>`;
     if (currentPage > 3) markup += `<li>${beforeTwoPage}</li>`;
     if (currentPage > 2) markup += `<li>${beforePage}</li>`;
-    markup += `<li><span>${currentPage}</span></li>`;
-    if (allPages - 1 > currentPage) markup += `<li>${afterPage}</li>`;
-    if (allPages - 2 > currentPage) markup += `<li>${afterTwoPage}</li>`;
+    markup += `<li><span class='currentPage'>${currentPage}</span></li>`;
+    if (currentPage >= 499) return;
+    if (allPages - 1 > currentPage) {
+        markup += `<li>${afterPage}</li>`;
+        console.log(afterPage);
+    }
+    if (allPages - 2 > currentPage) {
+        markup += `<li>${afterTwoPage}</li>`;
+        console.log(afterTwoPage);
+    }
     if (allPages - 3 > currentPage) markup += `<li>...</li>`;
     if (allPages > currentPage || allPages < currentPage) {
         markup += `<li>${allPages = 500}</li>`;
