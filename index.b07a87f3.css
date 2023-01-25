@@ -139,12 +139,40 @@ summary {
 }
 
 .cards-item {
-  width: 300px;
+  width: 400px;
   padding: 20px;
 }
 
 .movieImag {
-  width: 200px;
+  width: 100%;
+}
+
+.description_box {
+  width: 100%;
+  justify-content: start;
+  align-items: center;
+  display: flex;
+}
+
+.title {
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.grade {
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  background: #ff6b01;
+  border-radius: 5px;
+  top: 890px;
+  left: 229px;
+}
+
+.currentPage {
+  font-weight: 900;
 }
 
 /*# sourceMappingURL=index.b07a87f3.css.map */
