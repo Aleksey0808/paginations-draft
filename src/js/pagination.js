@@ -1,79 +1,85 @@
-import fetchLord from './fetchLord';
-import { createMarkup } from '../index';
+import fetchLord from './fetchLord'
+import { createMarkup } from '../index'
+import { totalPage } from '../index'
 
-const paginationBox = document.querySelector('.pagination');
-let globalCurrentPage = 0;
+const paginationBox = document.querySelector('.pagination')
+let globalCurrentPage = 0
 
-export default function pagination(currentPage, allPages = 500) {
-  let markup = '';
-  let beforeTwoPage = currentPage - 2;
-  let beforePage = currentPage - 1;
-  let afterPage = currentPage + 1;
-  let afterTwoPage = currentPage + 2;
-  globalCurrentPage = currentPage;
+export default function pagination(currentPage, allPages = totalPage) {
+  let markup = ''
+  let beforeTwoPage = currentPage - 2
+  let beforePage = currentPage - 1
+  let afterPage = currentPage + 1
+  let afterTwoPage = currentPage + 2
+  globalCurrentPage = currentPage
 
-  
   if (currentPage > 1) {
-    markup += `<li>&#8592;</li>`;
-    markup += `<li>1</li>`;
+    markup += `<li>&#8592;</li>`
+    markup += `<li>1</li>`
   }
   if (currentPage > 4) {
-    markup += `<li>...</li>`;
+    markup += `<li>...</li>`
   }
   if (currentPage > 3) {
-    markup += `<li>${beforeTwoPage}</li>`;
+    markup += `<li>${beforeTwoPage}</li>`
   }
   if (currentPage > 2) {
-    markup += `<li>${beforePage}</li>`;
+    markup += `<li>${beforePage}</li>`
   }
-  markup += `<li><span class='currentPage'>${currentPage}</span></li>`;
-  if (currentPage >= 499) {
-    return
+  markup += `<li><span class='currentPage'>${currentPage}</span></li>`
+  if (currentPage >= allPages) {
+    return (paginationBox.innerHTML = markup)
   }
   if (allPages - 1 > currentPage) {
-    markup += `<li>${afterPage}</li>`;
-    console.log(afterPage)
+    if (afterPage <= allPages) {
+      markup += `<li>${afterPage}</li>`
+      // console.log(afterPage)
+    }
   }
   if (allPages - 2 > currentPage) {
-    markup += `<li>${afterTwoPage}</li>`;
-    console.log(afterTwoPage)
+    if (afterTwoPage <= allPages) {
+      markup += `<li>${afterTwoPage}</li>`
+      // console.log(afterTwoPage)
+    }
   }
   if (allPages - 3 > currentPage) {
-    markup += `<li>...</li>`;
+    markup += `<li>...</li>`
+    console.log(allPages)
+    console.log(currentPage)
   }
   if (allPages > currentPage || allPages < currentPage) {
-    markup += `<li>${allPages = 500}</li>`;
-    markup += `<li>&#8594;</li>`;
+    markup += `<li>${allPages}</li>`
+    markup += `<li>&#8594;</li>`
   }
-  paginationBox.innerHTML = markup;
+  paginationBox.innerHTML = markup
 }
 
-paginationBox.addEventListener('click', handlrePagination);
+paginationBox.addEventListener('click', handlrePagination)
 
 function handlrePagination(evt) {
   if (evt.target.nodeName !== 'LI') {
-    return;
+    return
   }
   if (evt.target.textContent === '...') {
-    return;
+    return
   }
   if (evt.target.textContent === '←') {
-    fetchLord((globalCurrentPage -= 1)).then(data => {
-      createMarkup(data.results);
-      pagination(data.page, data.total_pages);
-    });
-    return;
+    fetchLord((globalCurrentPage -= 1)).then((data) => {
+      createMarkup(data.results)
+      pagination(data.page, totalPage)
+    })
+    return
   }
   if (evt.target.textContent === '→') {
-    fetchLord((globalCurrentPage += 1)).then(data => {
-      createMarkup(data.results);
-      pagination(data.page, data.total_pages);
-    });
-    return;
+    fetchLord((globalCurrentPage += 1)).then((data) => {
+      createMarkup(data.results)
+      pagination(data.page, totalPage)
+    })
+    return
   }
-  const page = evt.target.textContent;
-  fetchLord(page).then(data => {
-    createMarkup(data.results);
-    pagination(data.page, data.total_pages);
-  });
+  const page = evt.target.textContent
+  fetchLord(page).then((data) => {
+    createMarkup(data.results)
+    pagination(data.page, totalPage)
+  })
 }
