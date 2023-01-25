@@ -142,7 +142,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"1RB6v":[function(require,module,exports) {
+})({"85bBE":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
@@ -505,12 +505,14 @@ function hmrAcceptRun(bundle, id) {
 },{}],"8lqZg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "totalPage", ()=>totalPage);
 parcelHelpers.export(exports, "createMarkup", ()=>createMarkup);
 var _pagination = require("./js/pagination");
 var _paginationDefault = parcelHelpers.interopDefault(_pagination);
 var _fetchLord = require("./js/fetchLord");
 var _fetchLordDefault = parcelHelpers.interopDefault(_fetchLord);
 const list = document.querySelector(".cards");
+const totalPage = 500;
 function createMarkup(arr) {
     const markup = arr.reduce((acc, { title , vote_average , poster_path  })=>acc + `<li class="cards-item"><img class='movieImag' src="https://image.tmdb.org/t/p/w500${poster_path}" alt=""> <div class='description_box'><p class='title'>${title}</p><p class='grade'>${vote_average}</p></div></li>`, "");
     list.innerHTML = markup;
@@ -518,7 +520,7 @@ function createMarkup(arr) {
 (0, _fetchLordDefault.default)().then((data)=>{
     console.log(data);
     createMarkup(data.results);
-    (0, _paginationDefault.default)(data.page, data.total_pages);
+    (0, _paginationDefault.default)(data.page, totalPage);
 });
 
 },{"./js/pagination":"9j1Dd","./js/fetchLord":"5h9r2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9j1Dd":[function(require,module,exports) {
@@ -529,7 +531,7 @@ var _fetchLordDefault = parcelHelpers.interopDefault(_fetchLord);
 var _index = require("../index");
 const paginationBox = document.querySelector(".pagination");
 let globalCurrentPage = 0;
-function pagination(currentPage, allPages = 500) {
+function pagination(currentPage, allPages = (0, _index.totalPage)) {
     let markup = "";
     let beforeTwoPage = currentPage - 2;
     let beforePage = currentPage - 1;
@@ -544,18 +546,22 @@ function pagination(currentPage, allPages = 500) {
     if (currentPage > 3) markup += `<li>${beforeTwoPage}</li>`;
     if (currentPage > 2) markup += `<li>${beforePage}</li>`;
     markup += `<li><span class='currentPage'>${currentPage}</span></li>`;
-    if (currentPage >= 499) return;
+    if (currentPage >= allPages) return paginationBox.innerHTML = markup;
     if (allPages - 1 > currentPage) {
-        markup += `<li>${afterPage}</li>`;
-        console.log(afterPage);
+        if (afterPage <= allPages) markup += `<li>${afterPage}</li>`;
+    // console.log(afterPage)
     }
     if (allPages - 2 > currentPage) {
-        markup += `<li>${afterTwoPage}</li>`;
-        console.log(afterTwoPage);
+        if (afterTwoPage <= allPages) markup += `<li>${afterTwoPage}</li>`;
+    // console.log(afterTwoPage)
     }
-    if (allPages - 3 > currentPage) markup += `<li>...</li>`;
+    if (allPages - 3 > currentPage) {
+        markup += `<li>...</li>`;
+        console.log(allPages);
+        console.log(currentPage);
+    }
     if (allPages > currentPage || allPages < currentPage) {
-        markup += `<li>${allPages = 500}</li>`;
+        markup += `<li>${allPages}</li>`;
         markup += `<li>&#8594;</li>`;
     }
     paginationBox.innerHTML = markup;
@@ -568,21 +574,21 @@ function handlrePagination(evt) {
     if (evt.target.textContent === "\u2190") {
         (0, _fetchLordDefault.default)(globalCurrentPage -= 1).then((data)=>{
             (0, _index.createMarkup)(data.results);
-            pagination(data.page, data.total_pages);
+            pagination(data.page, (0, _index.totalPage));
         });
         return;
     }
     if (evt.target.textContent === "\u2192") {
         (0, _fetchLordDefault.default)(globalCurrentPage += 1).then((data)=>{
             (0, _index.createMarkup)(data.results);
-            pagination(data.page, data.total_pages);
+            pagination(data.page, (0, _index.totalPage));
         });
         return;
     }
     const page = evt.target.textContent;
     (0, _fetchLordDefault.default)(page).then((data)=>{
         (0, _index.createMarkup)(data.results);
-        pagination(data.page, data.total_pages);
+        pagination(data.page, (0, _index.totalPage));
     });
 }
 
@@ -627,6 +633,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["1RB6v","8lqZg"], "8lqZg", "parcelRequireccc1")
+},{}]},["85bBE","8lqZg"], "8lqZg", "parcelRequireccc1")
 
 //# sourceMappingURL=index.975ef6c8.js.map
