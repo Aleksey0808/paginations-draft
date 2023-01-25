@@ -113,8 +113,38 @@ summary {
   display: list-item;
 }
 
-.pagination, .pagination li {
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.pagination {
+  max-width: 250px;
+  margin: 0 auto;
   display: flex;
+}
+
+.pagination li {
+  padding-right: 15px;
+  display: flex;
+}
+
+.cards {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+}
+
+.cards-item {
+  width: 300px;
+  padding: 20px;
+}
+
+.movieImag {
+  width: 200px;
 }
 
 /*# sourceMappingURL=index.b07a87f3.css.map */
