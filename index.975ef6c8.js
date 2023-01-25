@@ -539,7 +539,7 @@ function pagination(currentPage, allPages = (0, _index.totalPage)) {
     let afterTwoPage = currentPage + 2;
     globalCurrentPage = currentPage;
     if (currentPage > 1) {
-        markup += `<li>&#8592;</li>`;
+        markup += `<li class='arrow'>&#8592;</li>`;
         markup += `<li>1</li>`;
     }
     if (currentPage > 4) markup += `<li>...</li>`;
@@ -562,7 +562,7 @@ function pagination(currentPage, allPages = (0, _index.totalPage)) {
     }
     if (allPages > currentPage || allPages < currentPage) {
         markup += `<li>${allPages}</li>`;
-        markup += `<li>&#8594;</li>`;
+        markup += `<li class='arrow'>&#8594;</li>`;
     }
     paginationBox.innerHTML = markup;
 }
@@ -575,6 +575,8 @@ function handlrePagination(evt) {
         (0, _fetchLordDefault.default)(globalCurrentPage -= 1).then((data)=>{
             (0, _index.createMarkup)(data.results);
             pagination(data.page, (0, _index.totalPage));
+        }).catch((error)=>{
+            console.log(error);
         });
         return;
     }
@@ -582,6 +584,8 @@ function handlrePagination(evt) {
         (0, _fetchLordDefault.default)(globalCurrentPage += 1).then((data)=>{
             (0, _index.createMarkup)(data.results);
             pagination(data.page, (0, _index.totalPage));
+        }).catch((error)=>{
+            console.log(error);
         });
         return;
     }
@@ -589,6 +593,8 @@ function handlrePagination(evt) {
     (0, _fetchLordDefault.default)(page).then((data)=>{
         (0, _index.createMarkup)(data.results);
         pagination(data.page, (0, _index.totalPage));
+    }).catch((error)=>{
+        console.log(error);
     });
 }
 
