@@ -516,12 +516,20 @@ const totalPage = 500;
 function createMarkup(arr) {
     const markup = arr.reduce((acc, { title , vote_average , poster_path  })=>acc + `<li class="cards-item"><img class='movieImag' src="https://image.tmdb.org/t/p/w500${poster_path}" alt=""> <div class='description_box'><p class='title'>${title}</p><p class='grade'>${vote_average}</p></div></li>`, "");
     list.innerHTML = markup;
+    smoothScrolling();
 }
 (0, _fetchLordDefault.default)().then((data)=>{
     // console.log(data)
     createMarkup(data.results);
     (0, _paginationDefault.default)(data.page, totalPage);
 });
+function smoothScrolling() {
+    const { height: cardHeight  } = list.firstElementChild.getBoundingClientRect();
+    window.scrollBy({
+        top: cardHeight * -300,
+        behavior: "smooth"
+    });
+}
 
 },{"./js/pagination":"9j1Dd","./js/fetchLord":"5h9r2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9j1Dd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -540,26 +548,26 @@ function pagination(currentPage, allPages = (0, _index.totalPage)) {
     let afterTwoPage = currentPage + 2;
     globalCurrentPage = currentPage;
     if (currentPage > 1) {
-        markup += `<li><a href="#" class='arrow-left'>left</a></li>`;
-        markup += `<li>1</li>`;
+        markup += `<li><button class='arrow-left'>left</button></li>`;
+        markup += `<li><button>1</button></li>`;
     }
     if (currentPage > 4) markup += `<li>...</li>`;
-    if (currentPage > 3) markup += `<li>${beforeTwoPage}</li>`;
-    if (currentPage > 2) markup += `<li>${beforePage}</li>`;
-    markup += `<li><span class='currentPage'>${currentPage}</span></li>`;
+    if (currentPage > 3) markup += `<li><button> ${beforeTwoPage}</button></li>`;
+    if (currentPage > 2) markup += `<li><button>${beforePage}</button></li>`;
+    markup += `<li><button class='currentPage'>${currentPage}</button></li>`;
     if (currentPage >= allPages) return paginationBox.innerHTML = markup;
     if (allPages - 1 > currentPage) {
-        if (afterPage <= allPages) markup += `<li>${afterPage}</li>`;
+        if (afterPage <= allPages) markup += `<li><button>${afterPage}</button></li>`;
     // console.log(afterPage)
     }
     if (allPages - 2 > currentPage) {
-        if (afterTwoPage <= allPages) markup += `<li>${afterTwoPage}</li>`;
+        if (afterTwoPage <= allPages) markup += `<li><button>${afterTwoPage}</button></li>`;
     // console.log(afterTwoPage)
     }
     if (allPages - 3 > currentPage) markup += `<li>...</li>`;
     if (allPages > currentPage || allPages < currentPage) {
-        markup += `<li>${allPages}</li>`;
-        markup += `<li><a href="#" class='arrow-right'>right</a></li>`;
+        markup += `<li><button>${allPages}</button></li>`;
+        markup += `<li><button class='arrow-right'>right</button></li>`;
     }
     paginationBox.innerHTML = markup;
 }
@@ -567,7 +575,7 @@ exports.default = pagination;
 paginationBox.addEventListener("click", handlrePagination);
 function handlrePagination(evt) {
     console.log(evt.target.textContent);
-    if (evt.target.nodeName !== "LI" && evt.target.nodeName !== "A") return;
+    if (evt.target.nodeName !== "LI" && evt.target.nodeName !== "BUTTON") return;
     if (evt.target.textContent === "...") return;
     if (evt.target.textContent === "left") {
         console.log("Hello im left");
@@ -575,7 +583,7 @@ function handlrePagination(evt) {
             (0, _index.createMarkup)(data.results);
             pagination(data.page, (0, _index.totalPage));
         }).catch((error)=>{
-        // console.log(error)
+            console.log(error);
         });
         return;
     }
@@ -585,7 +593,7 @@ function handlrePagination(evt) {
             (0, _index.createMarkup)(data.results);
             pagination(data.page, (0, _index.totalPage));
         }).catch((error)=>{
-        // console.log(error)
+            console.log(error);
         });
         return;
     }
@@ -594,11 +602,11 @@ function handlrePagination(evt) {
         (0, _index.createMarkup)(data.results);
         pagination(data.page, (0, _index.totalPage));
     }).catch((error)=>{
-    // console.log(error)
+        console.log(error);
     });
 }
 
-},{"./fetchLord":"5h9r2","../index":"8lqZg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../images/symbol-defs.svg":"8r0xV"}],"5h9r2":[function(require,module,exports) {
+},{"./fetchLord":"5h9r2","../index":"8lqZg","../images/symbol-defs.svg":"8r0xV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5h9r2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const BASE_URL = `https://api.themoviedb.org/3/movie/popular`;
