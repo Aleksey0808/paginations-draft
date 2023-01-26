@@ -526,7 +526,7 @@ function createMarkup(arr) {
 function smoothScrolling() {
     const { height: cardHeight  } = list.firstElementChild.getBoundingClientRect();
     window.scrollBy({
-        top: cardHeight * -300,
+        top: cardHeight * -200,
         behavior: "smooth"
     });
 }
