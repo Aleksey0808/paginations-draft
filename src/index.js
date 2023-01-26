@@ -15,7 +15,7 @@ export function createMarkup(arr) {
 }
 
 searchVCharacters().then((data) => {
-  console.log(data)
+  // console.log(data)
   createMarkup(data.results)
   pagination(data.page, totalPage)
 })

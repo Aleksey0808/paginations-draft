@@ -1,6 +1,7 @@
 import fetchLord from './fetchLord'
 import { createMarkup } from '../index'
 import { totalPage } from '../index'
+import '../images/symbol-defs.svg'
 
 const paginationBox = document.querySelector('.pagination')
 let globalCurrentPage = 0
@@ -14,7 +15,7 @@ export default function pagination(currentPage, allPages = totalPage) {
   globalCurrentPage = currentPage
 
   if (currentPage > 1) {
-    markup += `<li class='arrow'>&#8592;</li>`
+    markup += `<li><a href="#" class='arrow-left'>left</a></li>`
     markup += `<li>1</li>`
   }
   if (currentPage > 4) {
@@ -44,12 +45,12 @@ export default function pagination(currentPage, allPages = totalPage) {
   }
   if (allPages - 3 > currentPage) {
     markup += `<li>...</li>`
-    console.log(allPages)
-    console.log(currentPage)
+    // console.log(allPages)
+    // console.log(currentPage)
   }
   if (allPages > currentPage || allPages < currentPage) {
     markup += `<li>${allPages}</li>`
-    markup += `<li class='arrow'>&#8594;</li>`
+    markup += `<li><a href="#" class='arrow-right'>right</a></li>`
   }
   paginationBox.innerHTML = markup
 }
@@ -57,31 +58,34 @@ export default function pagination(currentPage, allPages = totalPage) {
 paginationBox.addEventListener('click', handlrePagination)
 
 function handlrePagination(evt) {
-  if (evt.target.nodeName !== 'LI') {
+  console.log(evt.target.textContent)
+  if (evt.target.nodeName !== 'LI' && evt.target.nodeName !== 'A') {
     return
   }
   if (evt.target.textContent === '...') {
     return
   }
-  if (evt.target.textContent === '←') {
+  if (evt.target.textContent === 'left') {
+    console.log('Hello im left')
     fetchLord((globalCurrentPage -= 1))
       .then((data) => {
         createMarkup(data.results)
         pagination(data.page, totalPage)
       })
       .catch((error) => {
-        console.log(error)
+        // console.log(error)
       })
     return
   }
-  if (evt.target.textContent === '→') {
+  if (evt.target.textContent === 'right') {
+    console.log('Hello im right')
     fetchLord((globalCurrentPage += 1))
       .then((data) => {
         createMarkup(data.results)
         pagination(data.page, totalPage)
       })
       .catch((error) => {
-        console.log(error)
+        // console.log(error)
       })
     return
   }
@@ -92,6 +96,6 @@ function handlrePagination(evt) {
       pagination(data.page, totalPage)
     })
     .catch((error) => {
-      console.log(error)
+      // console.log(error)
     })
 }
