@@ -142,7 +142,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"85bBE":[function(require,module,exports) {
+})({"1RB6v":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
@@ -518,7 +518,7 @@ function createMarkup(arr) {
     list.innerHTML = markup;
 }
 (0, _fetchLordDefault.default)().then((data)=>{
-    console.log(data);
+    // console.log(data)
     createMarkup(data.results);
     (0, _paginationDefault.default)(data.page, totalPage);
 });
@@ -529,6 +529,7 @@ parcelHelpers.defineInteropFlag(exports);
 var _fetchLord = require("./fetchLord");
 var _fetchLordDefault = parcelHelpers.interopDefault(_fetchLord);
 var _index = require("../index");
+var _symbolDefsSvg = require("../images/symbol-defs.svg");
 const paginationBox = document.querySelector(".pagination");
 let globalCurrentPage = 0;
 function pagination(currentPage, allPages = (0, _index.totalPage)) {
@@ -539,7 +540,7 @@ function pagination(currentPage, allPages = (0, _index.totalPage)) {
     let afterTwoPage = currentPage + 2;
     globalCurrentPage = currentPage;
     if (currentPage > 1) {
-        markup += `<li class='arrow'>&#8592;</li>`;
+        markup += `<li><a href="#" class='arrow-left'>left</a></li>`;
         markup += `<li>1</li>`;
     }
     if (currentPage > 4) markup += `<li>...</li>`;
@@ -555,37 +556,36 @@ function pagination(currentPage, allPages = (0, _index.totalPage)) {
         if (afterTwoPage <= allPages) markup += `<li>${afterTwoPage}</li>`;
     // console.log(afterTwoPage)
     }
-    if (allPages - 3 > currentPage) {
-        markup += `<li>...</li>`;
-        console.log(allPages);
-        console.log(currentPage);
-    }
+    if (allPages - 3 > currentPage) markup += `<li>...</li>`;
     if (allPages > currentPage || allPages < currentPage) {
         markup += `<li>${allPages}</li>`;
-        markup += `<li class='arrow'>&#8594;</li>`;
+        markup += `<li><a href="#" class='arrow-right'>right</a></li>`;
     }
     paginationBox.innerHTML = markup;
 }
 exports.default = pagination;
 paginationBox.addEventListener("click", handlrePagination);
 function handlrePagination(evt) {
-    if (evt.target.nodeName !== "LI") return;
+    console.log(evt.target.textContent);
+    if (evt.target.nodeName !== "LI" && evt.target.nodeName !== "A") return;
     if (evt.target.textContent === "...") return;
-    if (evt.target.textContent === "\u2190") {
+    if (evt.target.textContent === "left") {
+        console.log("Hello im left");
         (0, _fetchLordDefault.default)(globalCurrentPage -= 1).then((data)=>{
             (0, _index.createMarkup)(data.results);
             pagination(data.page, (0, _index.totalPage));
         }).catch((error)=>{
-            console.log(error);
+        // console.log(error)
         });
         return;
     }
-    if (evt.target.textContent === "\u2192") {
+    if (evt.target.textContent === "right") {
+        console.log("Hello im right");
         (0, _fetchLordDefault.default)(globalCurrentPage += 1).then((data)=>{
             (0, _index.createMarkup)(data.results);
             pagination(data.page, (0, _index.totalPage));
         }).catch((error)=>{
-            console.log(error);
+        // console.log(error)
         });
         return;
     }
@@ -594,11 +594,11 @@ function handlrePagination(evt) {
         (0, _index.createMarkup)(data.results);
         pagination(data.page, (0, _index.totalPage));
     }).catch((error)=>{
-        console.log(error);
+    // console.log(error)
     });
 }
 
-},{"./fetchLord":"5h9r2","../index":"8lqZg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5h9r2":[function(require,module,exports) {
+},{"./fetchLord":"5h9r2","../index":"8lqZg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../images/symbol-defs.svg":"8r0xV"}],"5h9r2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const BASE_URL = `https://api.themoviedb.org/3/movie/popular`;
@@ -639,6 +639,43 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["85bBE","8lqZg"], "8lqZg", "parcelRequireccc1")
+},{}],"8r0xV":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("bLxZJ") + "symbol-defs.a8b2e413.svg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}]},["1RB6v","8lqZg"], "8lqZg", "parcelRequireccc1")
 
 //# sourceMappingURL=index.975ef6c8.js.map
