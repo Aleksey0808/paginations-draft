@@ -15,31 +15,31 @@ export default function pagination(currentPage, allPages = totalPage) {
   globalCurrentPage = currentPage
 
   if (currentPage > 1) {
-    markup += `<li><a href="#" class='arrow-left'>left</a></li>`
-    markup += `<li>1</li>`
+    markup += `<li><button class='arrow-left'>left</button></li>`
+    markup += `<li><button>1</button></li>`
   }
   if (currentPage > 4) {
     markup += `<li>...</li>`
   }
   if (currentPage > 3) {
-    markup += `<li>${beforeTwoPage}</li>`
+    markup += `<li><button> ${beforeTwoPage}</button></li>`
   }
   if (currentPage > 2) {
-    markup += `<li>${beforePage}</li>`
+    markup += `<li><button>${beforePage}</button></li>`
   }
-  markup += `<li><span class='currentPage'>${currentPage}</span></li>`
+  markup += `<li><button class='currentPage'>${currentPage}</button></li>`
   if (currentPage >= allPages) {
     return (paginationBox.innerHTML = markup)
   }
   if (allPages - 1 > currentPage) {
     if (afterPage <= allPages) {
-      markup += `<li>${afterPage}</li>`
+      markup += `<li><button>${afterPage}</button></li>`
       // console.log(afterPage)
     }
   }
   if (allPages - 2 > currentPage) {
     if (afterTwoPage <= allPages) {
-      markup += `<li>${afterTwoPage}</li>`
+      markup += `<li><button>${afterTwoPage}</button></li>`
       // console.log(afterTwoPage)
     }
   }
@@ -49,8 +49,8 @@ export default function pagination(currentPage, allPages = totalPage) {
     // console.log(currentPage)
   }
   if (allPages > currentPage || allPages < currentPage) {
-    markup += `<li>${allPages}</li>`
-    markup += `<li><a href="#" class='arrow-right'>right</a></li>`
+    markup += `<li><button>${allPages}</button></li>`
+    markup += `<li><button class='arrow-right'>right</button></li>`
   }
   paginationBox.innerHTML = markup
 }
@@ -59,7 +59,7 @@ paginationBox.addEventListener('click', handlrePagination)
 
 function handlrePagination(evt) {
   console.log(evt.target.textContent)
-  if (evt.target.nodeName !== 'LI' && evt.target.nodeName !== 'A') {
+  if (evt.target.nodeName !== 'LI' && evt.target.nodeName !== 'BUTTON') {
     return
   }
   if (evt.target.textContent === '...') {
@@ -73,7 +73,7 @@ function handlrePagination(evt) {
         pagination(data.page, totalPage)
       })
       .catch((error) => {
-        // console.log(error)
+        console.log(error)
       })
     return
   }
@@ -85,7 +85,7 @@ function handlrePagination(evt) {
         pagination(data.page, totalPage)
       })
       .catch((error) => {
-        // console.log(error)
+        console.log(error)
       })
     return
   }
@@ -96,6 +96,6 @@ function handlrePagination(evt) {
       pagination(data.page, totalPage)
     })
     .catch((error) => {
-      // console.log(error)
+      console.log(error)
     })
 }

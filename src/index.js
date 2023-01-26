@@ -12,6 +12,7 @@ export function createMarkup(arr) {
     '',
   )
   list.innerHTML = markup
+  smoothScrolling()
 }
 
 searchVCharacters().then((data) => {
@@ -19,3 +20,16 @@ searchVCharacters().then((data) => {
   createMarkup(data.results)
   pagination(data.page, totalPage)
 })
+
+function smoothScrolling() {
+  const { height: cardHeight } = list
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * -300,
+    behavior: 'smooth',
+  });
+}
+
+
+
