@@ -1,7 +1,7 @@
 import pagination from './js/pagination'
 import searchVCharacters from './js/fetchLord'
 
-const list = document.querySelector('.cards')
+const list = document.querySelector('.cards-pagination')
 export const totalPage = 500
 
 export function createMarkup(arr) {

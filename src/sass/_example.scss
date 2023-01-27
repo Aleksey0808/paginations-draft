@@ -1,9 +1,44 @@
-.container_pagination {
+.container-pagination {
   width: 1200px;
   padding: 0 20px;
   margin: 0 auto;
   padding: 20px;
 }
+
+.movieImag {
+  width: 100%;
+}
+
+.description_box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  margin-right: 10px;
+}
+
+.grade {
+  width: 40px;
+  height: 20px;
+  left: 229px;
+  top: 890px;
+  text-align: center;
+
+  background: #FF6B01;
+  border-radius: 5px;
+}
+
+.cards-item {
+  width: 400;
+  padding: 20px;
+}
+//--------------------------//
 
 a, button {
   text-decoration: none;
@@ -30,63 +65,31 @@ button {
   margin: 0 auto;
 }
 
-.pagination li {
+.number-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px;
-  // height: 40px;
-  // width: 40px;
 
   font-family: 'Roboto';
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   color: #000000;
+
+  &:hover{
+    background: #FF6B08;
+    border-radius: 8px;
+    color: #fff;
+  }
 }
 
-.cards {
+.cards-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   padding: 20px;
-}
-
-.cards-item {
-  width: 400;
-  padding: 20px;
-}
-
-.movieImag {
-  width: 100%;
-  
-}
-
-
-.description_box {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-}
-
-.title {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
-  margin-right: 10px;
-}
-
-.grade {
-  width: 40px;
-  height: 20px;
-  left: 229px;
-  top: 890px;
-  text-align: center;
-
-  background: #FF6B01;
-  border-radius: 5px;
 }
 
 .currentPage {
@@ -115,6 +118,11 @@ button {
   background-repeat: no-repeat;
   color: rgba(0, 0, 0, 0);
   font-size: 0;
+
+  &:hover{
+    background-color: #FF6B08;;
+    border-radius: 8px;
+  }
 }
 
 .arrow-left {
