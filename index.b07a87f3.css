@@ -113,58 +113,9 @@ summary {
   display: list-item;
 }
 
-.container_pagination {
+.container-pagination {
   width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-}
-
-a, button {
-  text-decoration: none;
-}
-
-ul, li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-button {
-  background: none;
-  border: none;
-}
-
-.pagination {
-  max-width: 400px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  display: flex;
-}
-
-.pagination li {
-  color: #000;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  font-family: Roboto;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
-  display: flex;
-}
-
-.cards {
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  display: flex;
-}
-
-.cards-item {
-  width: 400px;
   padding: 20px;
 }
 
@@ -196,6 +147,61 @@ button {
   left: 229px;
 }
 
+.cards-item {
+  width: 400px;
+  padding: 20px;
+}
+
+a, button {
+  text-decoration: none;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+.pagination {
+  max-width: 400px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  display: flex;
+}
+
+.number-pagination {
+  color: #000;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  display: flex;
+}
+
+.number-pagination:hover {
+  color: #fff;
+  background: #ff6b08;
+  border-radius: 8px;
+}
+
+.cards-pagination {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+}
+
 .currentPage {
   text-align: center;
   color: #fff;
@@ -220,6 +226,11 @@ button {
   border-radius: 5px;
   font-size: 0;
   transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
+.arrow-left:hover, .arrow-right:hover {
+  background-color: #ff6b08;
+  border-radius: 8px;
 }
 
 .arrow-left {
